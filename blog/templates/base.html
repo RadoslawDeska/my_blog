@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <title>Mój pierwszy blog</title>
+    <title>My first blog</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/starter-template/">
 
@@ -17,26 +17,68 @@
         body {
             padding-top: 5rem;
         }
+
+        #flash-container {
+            position: fixed;
+            top: calc(56px + 10px);
+            /* navbar height + some distance */
+            left: 0;
+            width: 100%;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        #flash-container .alert {
+            pointer-events: auto;
+            /* still can be closed manually */
+            width: 50%;
+            margin: 0 auto;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Mój blog</a>
+        <a class="navbar-brand" href="{{ url_for('index') }}">My blog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('create_entry') }}">Add new post</a>
+                </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Szukaj" aria-label="Szukaj">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Szukaj</button>
-            </form>
+
+            <!-- Searchbar (collapsible) -->
+            <form class="form-inline my-2 my-lg-0" action="#" method="GET"> <input
+                    class="form-control mr-sm-2" type="text" name="q" placeholder="Search..." aria-label="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> </form>
         </div>
     </nav>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div id="flash-container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            {{ msg }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    {% endif %}
+    {% endwith %}
+
 
     <main role="main" class="container">
 
@@ -44,6 +86,12 @@
         {% endblock %}
 
     </main><!-- /.container -->
+    <script>
+        // Auto-closing alerts
+        setTimeout(function () {
+            $('.alert').alert('close');
+        }, 3000);
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>

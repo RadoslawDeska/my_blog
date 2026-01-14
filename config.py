@@ -9,6 +9,6 @@ class Config:
     )  # 2
     SQLALCHEMY_DATABASE_URI = (  # 3
         os.environ.get("DATABASE_URL")
-        or "sqlite:///" + os.path.join(BASE_DIR, "mikroblog.db")
+        or "sqlite:///" + os.path.join(BASE_DIR, "database.db")
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
