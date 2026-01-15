@@ -1,0 +1,69 @@
+body {
+    padding-top: 5rem;
+}
+
+#flash-container {
+    position: fixed;
+    top: calc(56px + 10px);
+    /* navbar height + some distance */
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+    pointer-events: none;
+}
+
+#flash-container .alert {
+    pointer-events: auto;
+    /* still can be closed manually */
+    width: 50%;
+    margin: 0 auto;
+}
+
+.navbar-collapse>.d-flex>*+* {
+    margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .navbar-collapse>.d-flex>*+* {
+        margin-left: 1rem;
+        margin-top: 0;
+    }
+}
+
+.table-wrapper {
+    width: 900px;
+    /* stała szerokość całej tabeli */
+    margin: 0 auto;
+    /* wyśrodkowanie */
+}
+
+.fixed-table {
+    table-layout: fixed;
+    /* wymusza stałe kolumny */
+    width: 100%;
+    /* tabela wypełnia wrapper */
+}
+
+.fixed-table th,
+.fixed-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Stałe szerokości kolumn */
+.col-date {
+    width: 140px;
+}
+
+.col-title {
+    width: 200px;
+}
+
+.col-body {
+    width: 400px;
+}
+
+.col-actions {
+    width: 160px;
+}
