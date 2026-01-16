@@ -17,8 +17,8 @@ def handle_entry_form(entry=None, mode="create"):
             form.populate_obj(entry)
             db.session.commit()
 
-            flash("Post saved successfully!")
-            return redirect(request.url)
+            flash("Post saved successfully!")  # USUNĄĆ I SPRAWDZIĆ czy
+            return redirect(url_for("index"))
 
         errors = form.errors
 
