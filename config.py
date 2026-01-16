@@ -16,3 +16,11 @@ class Config:
 
     ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
     ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-me")
+
+    # Cookie Security Settings
+    SESSION_COOKIE_HTTPONLY = True  # Prevents JavaScript from accessing the session cookie
+    SESSION_COOKIE_SAMESITE = 'Lax'  # Helps prevent CSRF attacks
+    
+    # Only enable this if you're using HTTPS (you should in production!)
+    # For local development on http://localhost, keep this False
+    SESSION_COOKIE_SECURE = os.environ.get("FLASK_ENV") == "production"

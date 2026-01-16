@@ -1,9 +1,13 @@
+import secrets
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, PasswordField, StringField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError
 
 from config import Config
 
+# For delete_entry route (for CSRF validation)
+class EmptyForm(FlaskForm):
+    pass 
 
 class EntryForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
@@ -21,6 +25,8 @@ class LoginForm(FlaskForm):
         return field.data
 
     def validate_password(self, field):
-        if field.data != Config.ADMIN_PASSWORD:
+        # Prevent timing attacks by NOT USING != operator.
+        # Still less secure than hashing.
+        if not secrets.compare_digest(field.data, Config.ADMIN_PASSWORD):
             raise ValidationError("Invalid password")
         return field.data
