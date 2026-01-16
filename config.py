@@ -13,6 +13,14 @@ class Config:
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    # Neon-specific connection pool settings (REPLIT)
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,         # Test connections before using them
+        "pool_recycle": 300,           # Recycle connections every 5 minutes
+        "pool_size": 5,                # Limit concurrent connections
+        "max_overflow": 2,             # Allow 2 extra connections if needed
+        "pool_timeout": 30,            # Wait 30s for a connection from the pool
+    }
 
     ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
     ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "change-me")
